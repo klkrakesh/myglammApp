@@ -1,0 +1,69 @@
+
+<html ng-app="GlammApp">
+  <head>
+    <meta charset="utf-8">
+    <title>AngularJS JSON Fetching </title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles/styles.css" />
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="bower_components/angularUtils-pagination/dirPagination.js"></script>
+    <script type="text/javascript" src="controllers/main.js"></script>
+
+</head>
+
+<body ng-controller="mainCtrl">
+<div ng-view>
+</div>
+
+  <div class="input-group">
+   <input class="form-control" ng-model="search" placeholder="Search" type="text" /> <span class="input-group-addon">
+  <span class="glyphicon glyphicon-search"></span>
+   </span></div>
+<br />
+<div class="table-responsive">
+<table class="table table-bordered" name="btable">
+
+<thead>
+<tr>
+	<th> Appointment Id </th>
+    <th> Appointment Start Date </th>
+    <th> Appointment Start Time </th>
+    <th> City </th>
+    <th> Appointment Status </th>
+    <th> Consumer Name </th>
+    <th> Consumer Mobile Number </th>
+    <th> Franchise Name </th>
+    <th> Artist Name </th>
+    <th> Services </th>
+    <th> Booking Final Amount </th>
+</tr>
+</thead>
+<tbody>
+ <tr dir-paginate="item in list.data.appointments|itemsPerPage:5|filter:search">
+ <td> {{item.appointment.appointmentId}}</td>
+ <td> {{item.appointment.appointmentStartTS | date:'yyyy-MM-dd'}}</td>
+ <td> {{item.appointment.appointmentStartTS | date:'h:mm a'}}</td>
+ <td> {{item.appointment.city.name|cityFilter}}</td>
+ <td> <select ng-options="type for type in statusList" ng-model="item.appointment.status"> </select></td>
+ <td> {{item.consumer.firstName}} {{item.consumer.lastName}}</td>
+ <td>{{item.consumer.mobileNumber}}</td>
+ <td>{{item.franchise.franchiseName}}</td>
+ <td> {{item.artist.firstName}} {{item.artist.lastName}}</td>
+<td> 
+<ul ng-repeat="option in item.subCategories">{{option.name}}
+   <li ng-repeat="service in option.services">
+    {{service.name}}
+    </li>
+</ul>
+</td>
+<td> {{item.payment.finalAmount}}</td>
+</tr>
+</tbody>
+</table>
+<dir-pagination-controls max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
+</div>
+<!-- </div> -->
+</body>
+</html>

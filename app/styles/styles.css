@@ -1,0 +1,26 @@
+
+
+.input-group{
+
+padding-top:30px;
+padding-left:50%;
+padding-right:10%;
+
+}
+
+table, th, td {
+   border: 1px solid black;
+}
+
+select {
+
+height:25px;
+width:223px;
+
+}
+
+dir-pagination-controls{
+
+padding-left: 40%;
+
+}
